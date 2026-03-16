@@ -1,6 +1,6 @@
 # LoginProject
 
-This project is a **Login Assessment** developed in Java (Spring Boot) [or your tech stack] that demonstrates user authentication, registration, and basic account management.
+This project is a **Login Assessment** developed in Java (Spring Boot) that demonstrates user authentication, registration, and basic account management.
 
 ## Features
 
