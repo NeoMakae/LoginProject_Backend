@@ -11,7 +11,10 @@ import project.logininterviewproject.DTO.RegisterRequest;
 import project.logininterviewproject.DTO.UserResponse;
 import project.logininterviewproject.service.AuthService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import java.util.HashMap;
+import java.util.Map;
+
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -29,13 +32,22 @@ public class AuthController {
         try {
             String result = authService.register(request);
             logger.info("User registered successfully for email={}", request.getEmail());
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "success");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
         } catch (IllegalArgumentException e) {
             logger.warn("Registration failed for email={}: {}", request.getEmail(), e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "exists");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+
         } catch (Exception e) {
             logger.error("Unexpected error during registration for email={}", request.getEmail(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong. Please try again.");
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
