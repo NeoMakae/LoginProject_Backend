@@ -3,14 +3,11 @@ package project.logininterviewproject.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 public class UserResponse {
-
     private String firstName;
-
     private String lastName;
-
     private String email;
 
     public UserResponse(String firstName, String lastName, String email) {
